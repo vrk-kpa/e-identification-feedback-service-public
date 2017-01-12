@@ -1,0 +1,13 @@
+---
+  log:
+    file: 'logs/feedback.log'
+    level: info
+  smtp:
+    port: 25
+    host: smtp.host
+  mail:
+    to: to.address@mail.com
+    from: from.address@mail.com
+  ssl:
+    key_file: key_file_path
+    cert_file: cert_file_path
