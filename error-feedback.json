@@ -1,0 +1,18 @@
+{
+  "form": "errorfeedback",
+  "content": {
+    "service": "service",
+    "serviceAdditional": "serviceAdditional",
+    "userAgent": "userAgent",
+    "browserGiven": "browserGiven",
+    "type": "type",
+    "bank": "bank",
+    "mobileCertOperator": "mobileCertOperator",
+    "hasErrorCode": "hasErrorCode",
+    "errorCode": "errorCode",
+    "time": "time", 
+    "errorDescription": "errorDescription",
+    "errorRepeats": "errorRepeats",
+    "email": "email"
+  }
+}  

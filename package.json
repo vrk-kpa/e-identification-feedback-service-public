@@ -4,7 +4,9 @@
   "description": "foobar",
   "main": "app.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "server": "gulp server",
+    "test_server": "gulp test_server"
   },
   "author": "",
   "license": "ISC",
