@@ -3,11 +3,12 @@
     file: 'logs/feedback.log'
     level: info
   smtp:
-    port: 25
-    host: smtp.host
+    port: 8825
+    host: localhost
   mail:
     to: to.address@mail.com
     from: from.address@mail.com
   ssl:
-    key_file: key_file_path
-    cert_file: cert_file_path
+    feedback_host_cert_path: 'certs/'
+    key_file: test.key
+    cert_file: test.crt

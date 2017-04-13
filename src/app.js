@@ -13,14 +13,13 @@ const fs = require('fs');
 let port = 8443;
 
 const options = {
-  key: fs.readFileSync('/data00/deploy/ssl/' + config.ssl.key_file, {encoding: 'utf-8'}),
-  cert: fs.readFileSync('/data00/deploy/ssl/' + config.ssl.cert_file, {encoding: 'utf-8'})
+  key: fs.readFileSync(config.ssl.feedback_host_cert_path + '/' + config.ssl.key_file, {encoding: 'utf-8'}),
+  cert: fs.readFileSync(config.ssl.feedback_host_cert_path + '/' + config.ssl.cert_file, {encoding: 'utf-8'})
 }
 
 app.use(bodyParser.json());
 
 app.post('/', function (req, res) {
-  console.log('POST /');
   let params = req.body;
   let mail = email.send(params.form, params.content);
   mail.then(

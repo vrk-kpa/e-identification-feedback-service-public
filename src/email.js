@@ -24,11 +24,12 @@ function sendFeedback(fields) {
     from: fromValue,
     to: config.mail.to,
     subject: config.mail.subject,
-    text: 'Palautteen antaja \n\n' +
-    'Nimi: ' + fields.name + '\n' +
-    'Sähköposti: ' + fields.email + '\n\n' +
-    'Palautteen sisältö: \n\n' +
-    'Viesti: \n' + fields.message + '\n\n' +
+    text: 'Palautteen antaja \r\n' +
+    'Nimi: ' + fields.name + '\r\n' +
+    'Sähköposti: ' + fields.email + '\r\n\r\n' +
+    'Palautteen sisältö: \r\n' +
+    '------------------ \r\n' +
+    'Viesti: \r\n' + fields.message + '\r\n\r\n' +
     'Alkuperäiset tiedot: ' + JSON.stringify(fields)
   });
 };
@@ -46,20 +47,22 @@ function sendErrorFeedback(fields) {
     from: fromValue,
     to: config.mail.to,
     subject: config.mail.subject,
-    text: 'Palautteen antaja \n\n' +
-    'Sähköposti: ' + fields.email + '\n\n' +
-    'Palautteen sisältö: \n\n' +
-    'Palvelu: ' + fields.service + '\n' +
-    'Palvelu, lisätiedot: ' + fields.serviceAdditional + '\n\n' +
-    'Selain (automaattinen): ' + fields.userAgent + '\n' +
-    'Selain (käyttäjän antama): ' + fields.browserGiven + '\n\n' +
-    'Tunnistustapa: ' + fields.type + '\n' +
-    'Tunnistustapa/pankki: ' + fields.bank + '\n' +
-    'Tunnistustapa/mobiilivarmenne: ' + fields.mobileCertOperator + '\n\n' +
-    'Kuvaus virhetilanteesta: ' + fields.errorDescription + '\n' +
-    'Virheen tapahtumisaika: ' + fields.time + '\n' +
-    'Virhekoodi: ' + fields.errorCode + '\n' +
-    'Toistuuko virhe: ' + fields.errorRepeats + '\n\n'
+    text: 'Palautteen antaja \r\n' +
+    'Sähköposti: ' + fields.email + '\r\n\r\n' +
+    'Palautteen sisältö: \r\n' +
+    '------------------ \r\n' +
+    'Palvelu: ' + fields.service + '\r\n' +
+    'Palvelu, lisätiedot: ' + fields.serviceAdditional + '\r\n\r\n' +
+    'Selain (automaattinen): ' + fields.userAgent + '\r\n' +
+    'Selain (käyttäjän antama): ' + fields.browserGiven + '\r\n\r\n' +
+    'Tunnistustapa: ' + fields.type + '\r\n' +
+    'Tunnistustapa/mikä pankki: ' + fields.bank + '\r\n' +
+    'Tunnistustapa/mikä mobiilivarmenneoperaattori: ' + fields.mobileCertOperator + '\r\n\r\n' +
+    'Kuvaus virhetilanteesta: ' + fields.errorDescription + '\r\n' +
+    'Virheen tapahtumisaika: ' + fields.time + '\r\n' +
+    'Virhekoodi: ' + fields.errorCode + '\r\n' +
+    'Toistuuko virhe: ' + fields.errorRepeats + '\r\n\r\n' +
+    'Alkuperäiset tiedot: ' + JSON.stringify(fields)
   };
   logger.info(JSON.stringify(feedbackMail));
   return transporter.sendMail(feedbackMail);
