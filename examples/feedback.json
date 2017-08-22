@@ -2,7 +2,6 @@
   "form": "feedback",
   "content": {
     "message": "message",
-    "name": "name",
     "email": "email"
   }
 }

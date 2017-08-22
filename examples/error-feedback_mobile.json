@@ -5,15 +5,15 @@
     "serviceAdditional": "serviceAdditional",
     "userAgent": "userAgent",
     "browserGiven": "browserGiven",
-    "type": "pankki",
-    "bank": "bank",
-    "mobileCertOperator": "thisShouldNotGoIntoSummary",
+    "type": "mobiili",
+    "bank": "thisShouldNotGoIntoSummary",
+    "mobileCertOperator": "mobileCertOperator",
     "errorMessage": "errorMessage",
     "hasErrorCode": "hasErrorCode",
     "errorCode": "errorCode",
     "time": "time",
     "errorDescription": "errorDescription",
-    "errorRepeats": "virhe_toistuu",
+    "errorRepeats": "virhe_ei_toistu",
     "email": "email"
   }
 }

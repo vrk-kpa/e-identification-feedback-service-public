@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport(smtpTransport({
 
 function sendFeedback(fields) {
   logger.info('Send feedback email: %s - %s - %s',
-    fields.message, fields.name, fields.email);
+    fields.message, fields.email);
   logger.info('SMTP and mail configs: ' + JSON.stringify(config));
   let fromValue;
   if (fields.email.trim()) {
@@ -25,7 +25,6 @@ function sendFeedback(fields) {
     to: config.mail.to,
     subject: config.mail.subject,
     text: 'Palautteen antaja \r\n' +
-    'Nimi: ' + fields.name + '\r\n' +
     'Sähköposti: ' + fields.email + '\r\n\r\n' +
     'Palautteen sisältö: \r\n' +
     '------------------ \r\n' +
@@ -43,26 +42,34 @@ function sendErrorFeedback(fields) {
   } else {
     fromValue = config.mail.from;
   }
+  let repeats = fields.errorRepeats === 'virhe_toistuu' ? 'kyllä' : 'ei';
+
+  let content = 'Palautteen antaja \r\n' +
+  'Sähköposti: ' + fields.email + '\r\n\r\n' +
+  'Palautteen sisältö: \r\n' +
+  '------------------ \r\n' +
+  'Palvelu: ' + fields.service + '\r\n' +
+  'Palvelu, lisätiedot: ' + fields.serviceAdditional + '\r\n\r\n' +
+  'Selain (automaattinen): ' + fields.userAgent + '\r\n' +
+  'Selain (käyttäjän antama): ' + fields.browserGiven + '\r\n\r\n' +
+  'Tunnistustapa: ' + fields.type + '\r\n';
+  if (fields.type === 'pankki') {
+    content = content + 'Minkä pankin tunnistusta käytit?: ' + fields.bank + '\r\n';
+  } else if (fields.type === 'mobiili') {
+    content = content + 'Minkä operaattorin mobiilivarmennetta käytit: ' + fields.mobileCertOperator + '\r\n\r\n';
+  }
+  content = content + 'Kuvaus virhetilanteesta: ' + fields.errorDescription + '\r\n' +
+  'Virhesivun sisältö: ' + fields.errorMessage + '\r\n' +
+  'Virheen tapahtumisaika: ' + fields.time + '\r\n' +
+  'Virhekoodi: ' + fields.errorCode + '\r\n' +
+  'Toistuuko virhe: ' + repeats + '\r\n\r\n' +
+  'Alkuperäiset tiedot: ' + JSON.stringify(fields);
+
   let feedbackMail = {
     from: fromValue,
     to: config.mail.to,
     subject: config.mail.subject,
-    text: 'Palautteen antaja \r\n' +
-    'Sähköposti: ' + fields.email + '\r\n\r\n' +
-    'Palautteen sisältö: \r\n' +
-    '------------------ \r\n' +
-    'Palvelu: ' + fields.service + '\r\n' +
-    'Palvelu, lisätiedot: ' + fields.serviceAdditional + '\r\n\r\n' +
-    'Selain (automaattinen): ' + fields.userAgent + '\r\n' +
-    'Selain (käyttäjän antama): ' + fields.browserGiven + '\r\n\r\n' +
-    'Tunnistustapa: ' + fields.type + '\r\n' +
-    'Tunnistustapa/mikä pankki: ' + fields.bank + '\r\n' +
-    'Tunnistustapa/mikä mobiilivarmenneoperaattori: ' + fields.mobileCertOperator + '\r\n\r\n' +
-    'Kuvaus virhetilanteesta: ' + fields.errorDescription + '\r\n' +
-    'Virheen tapahtumisaika: ' + fields.time + '\r\n' +
-    'Virhekoodi: ' + fields.errorCode + '\r\n' +
-    'Toistuuko virhe: ' + fields.errorRepeats + '\r\n\r\n' +
-    'Alkuperäiset tiedot: ' + JSON.stringify(fields)
+    text: content
   };
   logger.info(JSON.stringify(feedbackMail));
   return transporter.sendMail(feedbackMail);
