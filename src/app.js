@@ -33,5 +33,20 @@ app.post('/', function (req, res) {
     });
 });
 
+app.post('/eidas', function(req, res) {
+    let params = req.body;
+    let mail = email.sendEidas(params);
+    mail.then(
+        function (response) {
+            logger.info('Eidas email sent successfully: %s - %s', response, params.logTag);
+            res.send();
+        },
+        function (err) {
+            logger.error('An error occurred while sending eidas email: %s - %s', err, params.logTag);
+            res.status(500).send();
+        });
+});
+
 console.log("starting server on port:" + port)
+logger.info('Initializing app with SMTP and mail configs: ' + JSON.stringify(config));
 https.createServer(options, app).listen(port);

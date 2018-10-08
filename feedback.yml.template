@@ -1,0 +1,22 @@
+---
+  env: {{ env }}
+  log:
+    file: {{ feedbackconf_log_file }}
+    level: {{ feedbackconf_log_level }}
+  smtp:
+    port: {{ feedbackconf_smtp_port }}
+    host: {{ feedbackconf_smtp_host }}
+    secure: {{ feedbackconf_smtp_secure }}
+    ignoreTLS: {{ feedbackconf_smtp_ignoreTLS }}
+    requireTLS: {{ feedbackconf_smtp_requireTLS }}
+  mail:
+    to: {{ feedbackconf_mail_to }}
+    from: {{ feedbackconf_mail_from }}
+    subject: {{ feedbackconf_mail_subject }}
+    eidas:
+      pretext: "{{ feedbackconf_mail_eidas_pretext }}"
+      posttext: "{{ feedbackconf_mail_eidas_posttext }}"
+  ssl:
+    feedback_host_cert_path: {{ feedbackconf_ssl_feedback_host_cert_path }}
+    key_file: {{ feedbackconf_ssl_key_file }}
+    cert_file: {{ feedbackconf_ssl_cert_file }}

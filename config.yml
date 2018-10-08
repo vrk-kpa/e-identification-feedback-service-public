@@ -1,13 +1,21 @@
 ---
+  env: 'local'
   log:
     file: 'logs/feedback.log'
     level: info
   smtp:
     port: 8825
     host: localhost
+    secure: false
+    ignoreTLS: false
+    requireTLS: true
   mail:
     to: to.address@mail.com
     from: from.address@mail.com
+    subject: "Suomi.fi-tunnistaminen, palaute"
+    eidas:
+      pretext: "Suomi.fi-tunnistuksen kautta on lähetetty asiointipalvelulle seuraava palvelupyyntö:"
+      posttext: "Tämä viesti on lähetetty Suomi.fi-tunnistuksen palvelupyyntölomakkeelta, joka näytetään eIDAS-tunnistautuneille käyttäjille tunnistautumisen jälkeen silloin kun asiointipalvelu on rekisteröinyt perustiedoissaan lomakkeen käyttöön. EIDAS-tunnistautumisen valinneita käyttäjiä ei siten ohjata asiointipalveluun. Lomakkeen poistaminen käytöstä tai palvelupyyntöjen toimitusosoitteen muuttaminen on mahdollista päivittämällä asiointipalvelun metadata Palveluhallinnan kautta (https://palveluhallinta.suomi.fi)."
   ssl:
     feedback_host_cert_path: 'certs/'
     key_file: test.key

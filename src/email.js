@@ -7,13 +7,13 @@ const smtpTransport = require('nodemailer-smtp-transport');
 const transporter = nodemailer.createTransport(smtpTransport({
   port: config.smtp.port,
   host: config.smtp.host,
-  secure: false,
-  ignoreTLS: true}));
+  secure: config.smtp.secure,
+  ignoreTLS: config.smtp.ignoreTLS,
+  requireTLS: config.smtp.requireTLS
+}));
 
 function sendFeedback(fields) {
-  logger.info('Send feedback email: %s - %s - %s',
-    fields.message, fields.email);
-  logger.info('SMTP and mail configs: ' + JSON.stringify(config));
+  logger.info('Send feedback email: %s - %s', fields.message, fields.email);
   let fromValue;
   if (fields.email.trim()) {
     fromValue = fields.email.trim();
@@ -35,7 +35,6 @@ function sendFeedback(fields) {
 
 function sendErrorFeedback(fields) {
   logger.info('Send error feedback email: ', JSON.stringify(fields));
-  logger.info('SMTP and mail configs: ' + JSON.stringify(config));
   let fromValue;
   if (fields.email.trim()) {
     fromValue = fields.email.trim();
@@ -83,3 +82,28 @@ module.exports.send = function (form, fields) {
     return sendErrorFeedback(fields);
   }
 };
+
+module.exports.sendEidas = function(fields) {
+    logger.info('Send eidas contact email: %s - %s - %s - %s', fields.serviceName, fields.entityID, fields.eidasContactAddress, fields.logTag);
+    let subjectValue = '[Suomi.fi-tunnistus] eIDAS-yhteydenottopyyntö palvelulle ' + fields.serviceName + ' (' + fields.entityID + ')';
+    if ( config.env !== 'prod' ) {
+        subjectValue = '[Suomi.fi-tunnistus TESTI] eIDAS-yhteydenottopyyntö palvelulle ' + fields.serviceName + ' (' + fields.entityID + ')';
+    }
+    let pretext = config.mail.eidas.pretext;
+    if ( pretext && pretext.trim() ) {
+        pretext +=  '\r\n\r\n';
+    }
+    return transporter.sendMail({
+        from: config.mail.from,
+        to: fields.eidasContactAddress,
+        subject: subjectValue,
+        text:
+        pretext +
+        'LÄHETTÄJÄN YHTEYSTIEDOT:\r\n\r\n' +
+        'Sähköposti: ' + fields.email + '\r\n' +
+        'Puhelinnumero: ' + fields.phonenumber + '\r\n\r\n' +
+        'VIESTIN SISÄLTÖ:\r\n\r\n' +
+        fields.message + '\r\n\r\n------------------\r\n\r\n' +
+        config.mail.eidas.posttext
+    });
+}

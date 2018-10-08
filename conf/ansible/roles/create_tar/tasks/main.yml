@@ -5,9 +5,8 @@
     - "{{ tempdir }}/filled/config/"
     - "{{ tempdir }}/filled/ssl/"
 
-- name: Template config file
-  template: src={{ conf_root }}/configs/feedback.yml dest={{ tempdir }}/filled/config/
-  delegate_to: localhost
+- name: Fill feedback.yml
+  template: src={{ tempdir }}/feedback.yml.template dest={{ tempdir }}/filled/config/feedback.yml
 
 - name: Copy ssl key
   local_action: copy src={{ conf_root }}/certs/{{ host }}/{{ apro_ssl_key }} dest={{ tempdir }}/filled/ssl/

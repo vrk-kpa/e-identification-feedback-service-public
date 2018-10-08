@@ -1,0 +1,9 @@
+{
+  "message": "user message",
+  "email": "user email",
+  "entityID": "entityID",
+  "phonenumber": "0401234567",
+  "eidasContactAddress": "eidas-contact@mysp.xyz",
+  "serviceName": "Palvelun nimi",
+  "logTag": "logtag_123"
+}
