@@ -13,7 +13,6 @@ const transporter = nodemailer.createTransport(smtpTransport({
 }));
 
 function sendFeedback(fields) {
-  logger.info('Send feedback email: %s - %s', fields.message, fields.email);
   let fromValue;
   if (fields.email.trim()) {
     fromValue = fields.email.trim();
@@ -34,7 +33,6 @@ function sendFeedback(fields) {
 };
 
 function sendErrorFeedback(fields) {
-  logger.info('Send error feedback email: ', JSON.stringify(fields));
   let fromValue;
   if (fields.email.trim()) {
     fromValue = fields.email.trim();
@@ -70,7 +68,6 @@ function sendErrorFeedback(fields) {
     subject: config.mail.subject,
     text: content
   };
-  logger.info(JSON.stringify(feedbackMail));
   return transporter.sendMail(feedbackMail);
 };
 
@@ -84,7 +81,6 @@ module.exports.send = function (form, fields) {
 };
 
 module.exports.sendEidas = function(fields) {
-    logger.info('Send eidas contact email: %s - %s - %s - %s', fields.serviceName, fields.entityID, fields.eidasContactAddress, fields.logTag);
     let subjectValue = '[Suomi.fi-tunnistus] eIDAS-yhteydenottopyyntö palvelulle ' + fields.serviceName + ' (' + fields.entityID + ')';
     if ( config.env !== 'prod' ) {
         subjectValue = '[Suomi.fi-tunnistus TESTI] eIDAS-yhteydenottopyyntö palvelulle ' + fields.serviceName + ' (' + fields.entityID + ')';

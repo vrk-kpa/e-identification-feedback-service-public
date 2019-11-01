@@ -24,11 +24,11 @@ app.post('/', function (req, res) {
   let mail = email.send(params.form, params.content);
   mail.then(
     function (response) {
-      logger.info('Feedback email sent successfully: %s', response);
+      logger.info('Feedback email sent successfully', { form: params.form });
       res.send();
     },
     function (err) {
-      logger.error('An error occurred while sending feedback email: %s', err);
+      logger.error('An error occurred while sending feedback email: %s', err, { form: params.form });
       res.status(500).send();
     });
 });
@@ -38,11 +38,11 @@ app.post('/eidas', function(req, res) {
     let mail = email.sendEidas(params);
     mail.then(
         function (response) {
-            logger.info('Eidas email sent successfully: %s - %s', response, params.logTag);
+            logger.info('Eidas contact email sent successfully', { serviceName: params.serviceName, entityID: params.entityID, eidasContactAddress: params.eidasContactAddress, logTag: params.logTag });
             res.send();
         },
         function (err) {
-            logger.error('An error occurred while sending eidas email: %s - %s', err, params.logTag);
+            logger.error('An error occurred while sending eidas contact email: %s', err, { serviceName: params.serviceName, entityID: params.entityID, eidasContactAddress: params.eidasContactAddress, logTag: params.logTag });
             res.status(500).send();
         });
 });

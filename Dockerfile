@@ -1,6 +1,8 @@
 # Pull base image
 FROM e-identification-docker-virtual.vrk-artifactory-01.eden.csc.fi/e-identification-base-node
 
+RUN apt-get update && apt-get upgrade -y
+
 # Deploy project
 ADD ./src /data00/deploy/src
 ADD ./package.json /data00/deploy/
