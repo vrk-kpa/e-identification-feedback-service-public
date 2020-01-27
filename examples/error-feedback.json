@@ -14,6 +14,7 @@
     "time": "time",
     "errorDescription": "errorDescription",
     "errorRepeats": "virhe_toistuu",
-    "email": "email"
+    "email": "email",
+    "entityId": "https://new-mysp.xyz/sp1"
   }
 }

@@ -41,11 +41,14 @@ function sendErrorFeedback(fields) {
   }
   let repeats = fields.errorRepeats === 'virhe_toistuu' ? 'kyllä' : 'ei';
 
+  const entityId = fields.entityId || 'ei tiedossa';
+
   let content = 'Palautteen antaja \r\n' +
   'Sähköposti: ' + fields.email + '\r\n\r\n' +
   'Palautteen sisältö: \r\n' +
   '------------------ \r\n' +
   'Palvelu: ' + fields.service + '\r\n' +
+  'Palvelun tunniste (automaattinen): ' + entityId + '\r\n' +
   'Palvelu, lisätiedot: ' + fields.serviceAdditional + '\r\n\r\n' +
   'Selain (automaattinen): ' + fields.userAgent + '\r\n' +
   'Selain (käyttäjän antama): ' + fields.browserGiven + '\r\n\r\n' +
